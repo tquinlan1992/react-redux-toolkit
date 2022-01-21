@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "components": ["components/src"],
+      "components/*": ["components/src/*"],
+      "react-redux-toolkit": ["react-redux-toolkit/src"],
+      "react-redux-toolkit/*": ["react-redux-toolkit/src/*"],
+      "react-redux-toolkit-example": ["react-redux-toolkit-example/src"],
+      "react-redux-toolkit-example/*": ["react-redux-toolkit-example/src/*"]
+    }
+  }
+}

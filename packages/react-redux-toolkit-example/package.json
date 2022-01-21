@@ -1,0 +1,80 @@
+{
+  "name": "react-redux-toolkit-example",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@aws-amplify/ui-react": "^1.2.21",
+    "components": "^1.0.0",
+    "react-redux-toolkit": "^1.0.0",
+    "@reduxjs/toolkit": "^1.7.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^15.14.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "aws-amplify": "^4.3.3",
+    "eslint": "^7.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.25.1",
+    "prettier": "^2.3.2",
+    "react": "^17.0.2",
+    "react-app-rewired": "^2.1.8",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "^4.0.3",
+    "tsconfig-paths-webpack-plugin": "^3.5.1",
+    "typescript": "^4.4.4",
+    "web-vitals": "^1.0.1",
+    "webpack": "~4.44.2",
+    "whatwg-fetch": "^3.6.2",
+    "yup": "^0.32.11"
+  },
+  "scripts": {
+    "dev": "FAST_REFRESH=false PORT=8000 react-app-rewired start",
+    "build": "react-app-rewired build",
+    "type-check": "tsc --noEmit",
+    "test:watch": "react-app-rewired test --runInBand",
+    "test:ci": "JEST_JUNIT_OUTPUT_FILE=../../reports/junit/${PWD##*/}-junit.xml react-app-rewired test --watchAll=false",
+    "eject": "react-app-rewired eject",
+    "lint": "eslint 'src/**/*.ts?(x)'",
+    "serve": "serve -s build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "plugin:@typescript-eslint/recommended",
+      "prettier/react"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts?(x)"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": 0,
+          "typescript-eslint/explicit-module-boundary-types": 2
+        }
+      }
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

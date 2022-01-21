@@ -1,0 +1,25 @@
+{
+  "name": "react-redux-toolkit-monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "lint": "yarn workspaces run lint",
+    "test": "CI=true yarn workspaces run --ci test:ci --passWithNoTests",
+    "test:ci": "JEST_JUNIT_OUTPUT=reports/junit/js-test-results.xml CI=true yarn workspaces run --ci test:ci --passWithNoTests --testResultsProcessor=jest-junit",
+    "build-all": "yarn workspaces run build",
+    "type-check": "yarn workspaces run type-check",
+    "start": "yarn workspace react-redux-toolkit-example dev"
+  },
+  "dependencies": {
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest-junit": "^13.0.0",
+    "typescript": "^4.4.4",
+    "yarn": "^1.22.17"
+  }
+}

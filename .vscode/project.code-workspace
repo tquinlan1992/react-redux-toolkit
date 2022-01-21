@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "name": "components",
+      "path": "../packages/components"
+    },
+    {
+      "name": "react-redux-toolkit",
+      "path": "../packages/react-redux-toolkit"
+    },
+    {
+      "name": "react-redux-toolkit-example",
+      "path": "../packages/react-redux-toolkit-example"
+    }
+  ]
+}

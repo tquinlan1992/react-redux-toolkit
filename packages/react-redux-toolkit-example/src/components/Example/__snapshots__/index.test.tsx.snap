@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Example renders props 1 1`] = `
+<React.Fragment>
+  <h1>
+    Example of redux toolkit
+  </h1>
+  <h1>
+    Hooks results: 
+    hook1
+  </h1>
+  <p>
+    username input error: 
+    username errors
+  </p>
+  <ForwardRef(Input)
+    placeholder="username"
+  />
+  <ForwardRef(Button)>
+    Handle React Form Submit
+  </ForwardRef(Button)>
+  <Memo(NoParams) />
+  <ForwardRef(Button)
+    onClick={[Function]}
+  >
+    Components.Button
+  </ForwardRef(Button)>
+  <div>
+    <ForwardRef(Input)
+      onChange={[Function]}
+      placeholder="input1"
+      value="input1"
+    />
+  </div>
+  <div>
+    <ForwardRef(Input)
+      onChange={[Function]}
+      placeholder="input2"
+      value="input2"
+    />
+  </div>
+  <div>
+    <ForwardRef(Button)
+      onClick="actions.resetAllInputs"
+    >
+      Reset All Input
+    </ForwardRef(Button)>
+    <ForwardRef(Button)
+      onClick="actions.resetInput1"
+    >
+      Reset Input 1
+    </ForwardRef(Button)>
+    <ForwardRef(Button)
+      onClick="actions.resetInput2"
+    >
+      Reset Input 2
+    </ForwardRef(Button)>
+    <ForwardRef(Button)
+      onClick="actions.setInput1"
+    >
+      Set Input 1
+    </ForwardRef(Button)>
+    <ForwardRef(Button)
+      onClick="actions.setInput2"
+    >
+      Set Input 2
+    </ForwardRef(Button)>
+    <ForwardRef(Button)
+      onClick="actions.setAllInputs"
+    >
+      Set All Input
+    </ForwardRef(Button)>
+    <ForwardRef(Button)
+      onClick="actions.setFromThunk"
+    >
+      Set From Thunk
+    </ForwardRef(Button)>
+    <Connected Hooks Component />
+  </div>
+</React.Fragment>
+`;

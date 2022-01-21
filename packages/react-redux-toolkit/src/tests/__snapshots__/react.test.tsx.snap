@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`example-component renders props 1 1`] = `
+<React.Fragment>
+  <h1>
+    Example of redux toolkit
+  </h1>
+  <h2>
+    Hooks Result 
+    hook1
+  </h2>
+  <Connected Hooks Component />
+  <input
+    id="username"
+    name="username"
+  />
+  <button
+    onClick={[Function]}
+  />
+  <div>
+    <Input
+      onChange="actions.onChangeInput1"
+      placeholder="input1"
+      value="input1"
+    />
+  </div>
+  <div>
+    <Input
+      onChange="actions.onChangeInput2"
+      placeholder="input2"
+      value="input2"
+    />
+  </div>
+  <div>
+    <Button
+      onClick="actions.resetAllInputs"
+    >
+      Reset All input
+    </Button>
+    <Button
+      onClick="actions.resetAllInputs"
+    >
+      Reset All input
+    </Button>
+    <Button
+      onClick="actions.resetInput1"
+    >
+      Reset input 1
+    </Button>
+    <Button
+      onClick="actions.resetInput2"
+    >
+      Reset input 2
+    </Button>
+    <Button
+      onClick="actions.setInput1"
+    >
+      Set input 1
+    </Button>
+    <Button
+      onClick="actions.setInput2"
+    >
+      Set input 2
+    </Button>
+    <Button
+      onClick="actions.setAllInputs"
+    >
+      Set All input
+    </Button>
+    <Button
+      onClick="actions.setFromThunk"
+    >
+      Set From Thunk
+    </Button>
+    <Memo(ConnectPropsChildren) />
+  </div>
+</React.Fragment>
+`;
