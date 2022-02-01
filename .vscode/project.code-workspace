@@ -11,6 +11,10 @@
     {
       "name": "react-redux-toolkit-example",
       "path": "../packages/react-redux-toolkit-example"
+    },
+    {
+      "name": "docs",
+      "path": "../packages/docs"
     }
   ]
 }
