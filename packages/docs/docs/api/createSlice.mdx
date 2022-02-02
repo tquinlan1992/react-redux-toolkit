@@ -16,7 +16,7 @@ and automatically generates action creators and action types that correspond to 
 
 This API is the standard approach for writing Redux logic.
 
-Internally, it uses [`createAction`](./createAction.mdx) and [`createReducer`](./createReducer.mdx), so
+Internally, it uses [`createAction`](./createSlice.mdx) and [`createReducer`](./createSlice.mdx), so
 you may also use [Immer](https://immerjs.github.io/immer/) to write "mutating" immutable updates:
 
 ### What's New React Redux Toolkit
@@ -93,7 +93,7 @@ DevTools Extension when they are dispatched. Also, if any other part of the appl
 with the exact same type string, the corresponding reducer will be run. Therefore, you should give the functions
 descriptive names.
 
-This object will be passed to [`createReducer`](./createReducer.mdx), so the reducers may safely "mutate" the
+This object will be passed to [`createReducer`](./createSlice.mdx), so the reducers may safely "mutate" the
 state they are given.
 
 ```ts
@@ -111,7 +111,7 @@ const counterSlice = createSlice({
 
 #### Customizing Generated Action Creators
 
-If you need to customize the creation of the payload value of an action creator by means of a [`prepare callback`](./createAction.mdx#using-prepare-callbacks-to-customize-action-contents), the value of the appropriate field of the `reducers` argument object should be an object instead of a function. This object must contain two properties: `reducer` and `prepare`. The value of the `reducer` field should be the case reducer function while the value of the `prepare` field should be the prepare callback function:
+If you need to customize the creation of the payload value of an action creator by means of a [`prepare callback`](./createSlice.mdx#using-prepare-callbacks-to-customize-action-contents), the value of the appropriate field of the `reducers` argument object should be an object instead of a function. This object must contain two properties: `reducer` and `prepare`. The value of the `reducer` field should be the case reducer function while the value of the `prepare` field should be the prepare callback function:
 
 ```ts
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
@@ -162,7 +162,7 @@ This builder notation is also the only way to add matcher reducers and default c
 We recommend using this API as it has better TypeScript support (and thus, IDE autocomplete even for JavaScript users), as it will correctly infer the action type in the reducer based on the provided action creator.
 It's particularly useful for working with actions produced by `createAction` and `createAsyncThunk`.
 
-See [the "Builder Callback Notation" section of the `createReducer` reference](./createReducer.mdx#usage-with-the-builder-callback-notation) for details on how to use `builder.addCase`, `builder.addMatcher`, and `builder.addDefault`
+See [the "Builder Callback Notation" section of the `createReducer` reference](./createSlice.mdx#usage-with-the-builder-callback-notation) for details on how to use `builder.addCase`, `builder.addMatcher`, and `builder.addDefault`
 
 ### The `extraReducers` "map object" notation
 
@@ -170,7 +170,7 @@ Like `reducers`, `extraReducers` can be an object containing Redux case reducer 
 be other Redux string action type constants, and `createSlice` will _not_ auto-generate action types or action creators
 for reducers included in this parameter.
 
-Action creators that were generated using [`createAction`](./createAction.mdx) may be used directly as the keys here, using
+Action creators that were generated using [`createAction`](./createSlice.mdx) may be used directly as the keys here, using
 computed property syntax.
 
 ```js
@@ -191,7 +191,7 @@ createSlice({
 
 :::tip
 
-We recommend using the `builder callback` API as the default, especially if you are using TypeScript. If you do not use the `builder callback` and are using TypeScript, you will need to use `actionCreator.type` or `actionCreator.toString()` to force the TS compiler to accept the computed property. Please see [Usage With TypeScript](./../usage/usage-with-typescript.md#type-safety-with-extraReducers) for further details.
+We recommend using the `builder callback` API as the default, especially if you are using TypeScript. If you do not use the `builder callback` and are using TypeScript, you will need to use `actionCreator.type` or `actionCreator.toString()` to force the TS compiler to accept the computed property. Please see [Usage With TypeScript](./createSlice.mdx) for further details.
 
 :::
 
@@ -209,7 +209,7 @@ We recommend using the `builder callback` API as the default, especially if you 
 }
 ```
 
-Each function defined in the `reducers` argument will have a corresponding action creator generated using [`createAction`](./createAction.mdx)
+Each function defined in the `reducers` argument will have a corresponding action creator generated using [`createAction`](./createSlice.mdx)
 and included in the result's `actions` field using the same function name.
 
 The generated `reducer` function is suitable for passing to the Redux `combineReducers` function as a "slice reducer".

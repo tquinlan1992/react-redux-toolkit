@@ -7,7 +7,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'React Redux Toolkit',
-  tagline: 'The unofficial, highly opinionated, batteries-included toolset for efficient React-Redux development',
+  tagline:
+    'The unofficial, highly opinionated, batteries-included toolset for efficient React-Redux development',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -24,7 +25,8 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl:
+            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
           showReadingTime: true,
@@ -48,20 +50,7 @@ const config = {
           alt: 'React Redux Toolkit Logo',
           src: 'img/logo.svg',
         },
-        items: [
-          {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
+        items: [],
       },
       footer: {
         style: 'dark',
@@ -71,7 +60,7 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/docs/intro',
+                to: '/introduction/getting-started.md',
               },
             ],
           },
