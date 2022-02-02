@@ -1,5 +1,8 @@
 ---
-sidebar_position: 1
+id: getting-started
+title: Getting Started
+sidebar_label: Getting Started
+hide_title: true
 ---
 
 # Getting Started with React Redux Toolkit
