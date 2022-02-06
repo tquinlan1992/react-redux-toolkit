@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
+    "skipLibCheck": true,
     "baseUrl": "./packages",
     "paths": {
       "components": ["components/src"],

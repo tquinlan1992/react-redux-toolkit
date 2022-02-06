@@ -3,7 +3,6 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",

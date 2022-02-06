@@ -5,6 +5,7 @@
     "outDir": "dist",
     "jsx": "react-jsx",
     "declaration": true,
+    "skipLibCheck": true,
     "allowJs": true
   },
   "include": ["src/**/*"]
