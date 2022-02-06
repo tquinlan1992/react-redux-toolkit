@@ -12,7 +12,8 @@
     "test": "CI=true yarn workspaces foreach -v --exclude docs run test:ci --passWithNoTests",
     "build-all": "yarn workspaces foreach -v run build",
     "type-check": "yarn workspaces foreach -v --exclude docs run type-check",
-    "start": "yarn workspace react-redux-toolkit-example dev"
+    "start:docs": "yarn workspace docs start",
+    "start:example": "yarn workspace react-redux-toolkit-example dev"
   },
   "dependencies": {
     "eslint-config-prettier": "^8.3.0",
