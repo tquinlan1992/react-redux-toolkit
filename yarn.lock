@@ -13078,6 +13078,7 @@ __metadata:
     "@mdx-js/react": ^1.6.21
     "@tsconfig/docusaurus": ^1.0.4
     clsx: ^1.1.1
+    eslint: ^8.8.0
     prism-react-renderer: ^1.2.1
     react: ^17.0.1
     react-dom: ^17.0.1

@@ -8,7 +8,7 @@
     ]
   },
   "scripts": {
-    "lint": "yarn workspaces run lint",
+    "lint": "yarn workspaces foreach -v run lint",
     "test": "CI=true yarn workspaces foreach -v --exclude docs run test:ci --passWithNoTests",
     "build-all": "yarn workspaces foreach -v run build",
     "type-check": "yarn workspaces foreach -v --exclude docs run type-check",
