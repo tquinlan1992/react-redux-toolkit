@@ -148,9 +148,4 @@ export function configureStore<
   };
 }
 
-export type RTKAppThunkAction<RootState extends unknown> = ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
->;
+export type RTKAppThunkAction<RootState> = ThunkAction<void, RootState, unknown, AnyAction>;
