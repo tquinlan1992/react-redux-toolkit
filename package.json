@@ -13,7 +13,7 @@
     "test:ci": "JEST_JUNIT_OUTPUT=reports/junit/js-test-results.xml CI=true yarn workspaces run --ci test:ci --passWithNoTests --testResultsProcessor=jest-junit",
     "build-all": "yarn workspaces run build",
     "type-check": "yarn workspaces run type-check",
-    "start": "yarn workspace react-redux-toolkit-example dev"
+    "start": "cd packages/react-redux-toolkit-example && yarn dev"
   },
   "dependencies": {
     "eslint-config-prettier": "^8.3.0",
