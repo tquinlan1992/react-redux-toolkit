@@ -60,7 +60,7 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/introduction/getting-started.md',
+                to: '/docs/introduction/getting-started',
               },
             ],
           },
