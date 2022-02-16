@@ -60,5 +60,6 @@
   "peerDependencies": {
     "@reduxjs/toolkit": "^1.7.0",
     "lodash": "^4.17.21"
-  }
+  },
+  "gitHead": "4912f9b9c72e41b7d8d839a5620a0f963634ed27"
 }
