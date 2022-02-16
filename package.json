@@ -1,5 +1,5 @@
 {
-  "name": "react-redux-toolkit-monorepo",
+  "name": "@tquinlan1992/react-redux-toolkit-monorepo",
   "version": "0.0.1",
   "private": true,
   "workspaces": {
