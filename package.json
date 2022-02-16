@@ -12,6 +12,7 @@
     "test": "CI=true yarn workspaces foreach -v --exclude docs run test:ci --passWithNoTests",
     "build-all": "yarn workspaces foreach -v run build",
     "type-check": "yarn workspaces foreach -v --exclude docs run type-check",
+    "publish": "lerna publish",
     "start:docs": "yarn workspace docs start",
     "start:example": "yarn workspace react-redux-toolkit-example dev"
   },
@@ -22,5 +23,8 @@
     "typescript": "^4.4.4",
     "yarn": "^1.22.17"
   },
-  "packageManager": "yarn@3.1.1"
+  "packageManager": "yarn@3.1.1",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
 }

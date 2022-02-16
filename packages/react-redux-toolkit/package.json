@@ -6,7 +6,6 @@
   "files": [
     "/dist"
   ],
-  "private": false,
   "scripts": {
     "watch": "tsc --watch",
     "build": "tsc",
