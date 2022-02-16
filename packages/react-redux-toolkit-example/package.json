@@ -1,6 +1,6 @@
 {
   "name": "react-redux-toolkit-example",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@aws-amplify/ui-react": "^1.2.21",
@@ -16,7 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
     "aws-amplify": "^4.3.3",
-    "components": "^1.0.0",
+    "components": "^0.0.1",
     "eslint": "^8.8.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-react-app": "^6.0.0",
