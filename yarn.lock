@@ -12826,7 +12826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"components@^1.0.0, components@workspace:packages/components":
+"components@^0.0.1, components@workspace:packages/components":
   version: 0.0.0-use.local
   resolution: "components@workspace:packages/components"
   dependencies:
@@ -25761,7 +25761,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.10.2
     "@typescript-eslint/parser": ^5.10.2
     aws-amplify: ^4.3.3
-    components: ^1.0.0
+    components: ^0.0.1
     eslint: ^8.8.0
     eslint-config-prettier: ^8.3.0
     eslint-config-react-app: ^6.0.0
