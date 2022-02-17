@@ -55,7 +55,6 @@
     "@typescript-eslint/parser": "^5.10.2",
     "jest": "^27.5.0",
     "jest-fetch-mock": "^3.0.3",
-    "lodash": "^4.17.21",
     "react-hook-form": "^7.22.1",
     "react-redux": "^7.2.6",
     "react-test-renderer": "^17.0.2",
@@ -63,8 +62,8 @@
     "yup": "^0.32.11"
   },
   "peerDependencies": {
-    "@reduxjs/toolkit": "^1.7.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "react": "^16.9.0 || ^17.0.0 || 18.0.0-beta"
   },
   "gitHead": "ec8931ad12ceb2e291bded55fb41da8faa8b5d9c",
   "publishConfig": {
