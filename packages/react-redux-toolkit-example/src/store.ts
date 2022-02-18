@@ -8,8 +8,8 @@ import {
 import { example, thunkActions } from './features/example';
 
 import { Components } from './reusableComponents';
+import { configureStore } from '@reduxjs/toolkit';
 import { exampleRTKApi } from './api/example';
-import { configureStore as rtkConfigureStore } from '@reduxjs/toolkit';
 
 const slices = {
   example,
@@ -36,7 +36,7 @@ export const extraArgsMapDispatch = {
 
 const { apiReducer, middleware } = getApisReducer({ exampleRTKApi });
 
-export const store = rtkConfigureStore({
+export const store = configureStore({
   reducer: { ...apiReducer, ...reducer },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middleware),
 });
