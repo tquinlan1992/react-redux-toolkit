@@ -23,9 +23,9 @@ These tools should be beneficial to all React Redux users. Whether you're a bran
 
 ## Installation
 
-### Cloning Repo
+### New Project
 
-Currently the way to get going is to clone the react-redux-toolkit repository and run the following within it
+To get going with a new project, use the monorepo template repository [react-redux-toolkit-boilerplate](https://github.com/tquinlan1992/react-redux-toolkit-boilerplate) and run the following within it
 
 ```bash
 yarn install
@@ -49,6 +49,6 @@ yarn add react-redux-toolkit
 
 ## What's Included
 
-React Redux Toolkit includes these APIs:
+React Redux Toolkit includes these enhanced APIs of [@reduxjs/toolkit](https://www.npmjs.com/package/@reduxjs/toolkit):
 
-- [`createSlice()`](./api/createSlice.mdx): wraps `createSlice` that gives back a default setter/getter slice based on the initialState properties
+- [`createSlice()`](./api/redux/createSlice.mdx): wraps `createSlice` that gives back a default setter/getter slice based on the initialState properties
