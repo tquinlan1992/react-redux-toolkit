@@ -51,4 +51,4 @@ yarn add react-redux-toolkit
 
 React Redux Toolkit includes these enhanced APIs of [@reduxjs/toolkit](https://www.npmjs.com/package/@reduxjs/toolkit):
 
-- [`createSlice()`](./api/redux/createSlice.mdx): wraps `createSlice` that gives back a default setter/getter slice based on the initialState properties
+- [`createSlice()`](./api/redux/createSlice.md): wraps `createSlice` that gives back a default setter/getter slice based on the initialState properties
