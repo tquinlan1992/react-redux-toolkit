@@ -59,10 +59,7 @@ type MapHooksGeneric<
 } & {
   hooks?: any;
 } & {
-  apiQueries?: Record<
-    string,
-    { isLoading: boolean; error?: FetchBaseQueryError | SerializedError | undefined; data?: any }
-  >;
+  apiQueries?: Record<string, { isLoading: boolean; error?: any; data?: any }>;
 } & {
   apiMutations?: Record<string, readonly [MutationTrigger<any>, ...any]>;
 };
