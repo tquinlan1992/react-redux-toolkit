@@ -169,6 +169,7 @@ export function createConnectProps<
     };
   };
 }
+
 export function createConnectHooks<
   Options extends {
     extraArgsHooks?: Record<string, any>;

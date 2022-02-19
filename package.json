@@ -12,7 +12,7 @@
     "test": "CI=true yarn workspaces foreach -v --exclude docs run test:ci --passWithNoTests",
     "build-all": "yarn workspaces foreach -v run build",
     "type-check": "yarn workspaces foreach -v --exclude docs run type-check",
-    "publish": "lerna publish",
+    "publish": "yarn workspace @tquinlan1992/react-redux-toolkit build && lerna publish",
     "start:docs": "yarn workspace docs start",
     "start:example": "yarn workspace react-redux-toolkit-example dev"
   },
