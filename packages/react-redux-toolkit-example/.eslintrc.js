@@ -2,5 +2,5 @@
 const rootEslint = require('../../.eslintrc');
 
 module.exports = {
-  ...rootEslint,
+	...rootEslint,
 };

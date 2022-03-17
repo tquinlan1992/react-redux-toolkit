@@ -1,6 +1,6 @@
-import Example from 'react-redux-toolkit-example/components/Example';
+import Example from '../../components/Example';
 import { Provider } from 'react-redux';
-import { store } from 'react-redux-toolkit-example/store';
+import { store } from '../../store';
 
 const AppContainer = () => {
   return (

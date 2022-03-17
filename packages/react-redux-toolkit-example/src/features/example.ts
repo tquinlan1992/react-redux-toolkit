@@ -1,6 +1,6 @@
-import { AppThunkAction, storeActions } from '../store';
-
-import { createSlice } from 'react-redux-toolkit';
+import { AppThunkAction } from '../connectProps';
+import { createSlice } from '@tquinlan1992/react-redux-toolkit';
+import { storeActions } from '../store';
 
 export interface State {
   input1: string;

@@ -1,4 +1,5 @@
 {
+	"extends": "./tsconfig.paths.json",
 	"compilerOptions": {
 		"strict": true,
 		"module": "CommonJS",
@@ -11,7 +12,8 @@
 		"allowSyntheticDefaultImports": true,
 		"isolatedModules": true,
 		"resolveJsonModule": true,
-		"declaration": true
+		"declaration": true,
+		"skipLibCheck": true,
 	},
 	"exclude": ["node_modules", "dist"]
 }

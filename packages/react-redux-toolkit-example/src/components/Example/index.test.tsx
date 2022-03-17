@@ -1,5 +1,11 @@
-import Example from '.';
-import { testComponent } from '../../testUtils';
+import Example, {
+  ConnectedHooksComponent,
+  ConnectedReactComponent,
+  ConnectedReactComponentOwnProps,
+  ConnectedReactFCComponent,
+  ConnectedReactFCComponentOwnProps,
+} from '.';
+import { testComponent, testConnectHooks, testConnectReact } from '../../testUtils';
 
 testComponent('Example', Example, {
   mapState: ({ testMapState }) => {
@@ -53,6 +59,64 @@ testComponent('Example', Example, {
           hook1: 'hook1',
         },
       });
+    });
+  },
+});
+
+testConnectHooks('ConnectedHooksComponent', ConnectedHooksComponent, {
+  mapHooks: ({ testMapHooks, testHookCalled, mockHooks }) => {
+    it('should map hooks', () => {
+      testMapHooks({
+        given: {
+          hooks: mockHooks,
+        },
+        calledWith: () => ({
+          hooks: {
+            hook1: testHookCalled(mockHooks.hook1, 'testHookInput'),
+          },
+        }),
+      });
+    });
+  },
+  component: ({ testComponent }) => {
+    it('props 1', () => {
+      testComponent({
+        hooks: {
+          hook1: 'hook1',
+        },
+      });
+    });
+  },
+});
+
+testConnectReact('ConnectedReactComponent', ConnectedReactComponent, {
+  component: ({ testComponent }) => {
+    it('props 1', () => {
+      testComponent({});
+    });
+  },
+});
+
+testConnectReact('ConnectedReactComponentOwnProps', ConnectedReactComponentOwnProps, {
+  component: ({ testComponent }) => {
+    it('props 1', () => {
+      testComponent({ label: 'ConnectedReactComponentOwnProps Label' });
+    });
+  },
+});
+
+testConnectReact('ConnectedReactFCComponent', ConnectedReactFCComponent, {
+  component: ({ testComponent }) => {
+    it('props 1', () => {
+      testComponent({});
+    });
+  },
+});
+
+testConnectReact('ConnectedReactFCComponentOwnProps', ConnectedReactFCComponentOwnProps, {
+  component: ({ testComponent }) => {
+    it('props 1', () => {
+      testComponent({ label: 'ConnectedReactFCComponentOwnProps Label' });
     });
   },
 });

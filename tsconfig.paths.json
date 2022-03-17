@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "components": ["components/src"],
+      "components/*": ["components/src/*"],
+      "@tquinlan1992/react-redux-toolkit": ["react-redux-toolkit/src"],
+      "@tquinlan1992/react-redux-toolkit/*": ["react-redux-toolkit/src/*"],
+      "react-redux-toolkit-example": ["react-redux-toolkit-example/src"],
+      "react-redux-toolkit-example/*": ["react-redux-toolkit-example/src/*"]
+    }
+  }
+}

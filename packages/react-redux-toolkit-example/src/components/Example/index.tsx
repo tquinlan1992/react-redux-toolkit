@@ -1,9 +1,16 @@
-import { connectHooks, connectProps } from '../../store';
+import {
+  connectHooks,
+  connectProps,
+  connectReact,
+  connectReactFC,
+  connectReactFCOwnProps,
+  connectReactOwnProps,
+} from '../../connectProps';
 
 import { createSelector } from '@reduxjs/toolkit';
 
-const ConnectedHooksComponent = connectHooks('Connected Hooks Component', () => ({
-  hooks: { hook1: 'hook1 result' },
+export const ConnectedHooksComponent = connectHooks('Connected Hooks Component', ({ hooks }) => ({
+  hooks: { hook1: hooks.hook1('testHookInput') },
 }))(({ hooks, Components }) => {
   return (
     <Components.Button onClick={() => alert('ConnectedHooksComponent')}>
@@ -11,6 +18,22 @@ const ConnectedHooksComponent = connectHooks('Connected Hooks Component', () => 
     </Components.Button>
   );
 });
+
+export const ConnectedReactComponent = connectReact('ConnectReactComponent')(({ Components }) => (
+  <Components.Button>Connect React Component</Components.Button>
+));
+
+export const ConnectedReactComponentOwnProps = connectReactOwnProps<{ label: string }>()(
+  'ConnectedReactComponentOwnProps',
+)(({ Components, label }) => <Components.Button>{label}</Components.Button>);
+
+export const ConnectedReactFCComponent = connectReactFC('ConnectReactComponent')(
+  ({ Components }) => <Components.Button>ConnectedReactFCComponent Component</Components.Button>,
+);
+
+export const ConnectedReactFCComponentOwnProps = connectReactFCOwnProps<{ label: string }>()(
+  'ConnectedReactComponentOwnProps',
+)(({ Components, label }) => <Components.Button>{label}</Components.Button>);
 
 const NoParams = connectProps('NoParams', undefined, undefined, undefined)(() => <h1>NoParams</h1>);
 
@@ -73,7 +96,7 @@ export default connectProps(
   }) => {
     return (
       <>
-        <h1>Example of redux toolkit</h1>
+        <h1>Example of GreenXBlack redux toolkit</h1>
         <h1>Hooks results: {hook1}</h1>
         <p>username input error: {errors.username?.message}</p>
         <Input {...register('username')} placeholder="username" />
@@ -111,6 +134,8 @@ export default connectProps(
           <Button onClick={actions.setFromThunk}>Set From Thunk</Button>
           <ConnectedHooksComponent.Connected />
         </div>
+        <ConnectedReactComponent.Connected />
+        <ConnectedReactComponentOwnProps.Connected label="ConnectedReactComponentOwnProps Label" />
       </>
     );
   },

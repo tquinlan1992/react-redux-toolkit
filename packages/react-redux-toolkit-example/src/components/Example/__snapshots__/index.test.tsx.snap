@@ -1,9 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ConnectedHooksComponent renders props 1 1`] = `
+<ForwardRef(Button)
+  onClick={[Function]}
+>
+  hook1
+</ForwardRef(Button)>
+`;
+
+exports[`ConnectedReactComponent renders props 1 1`] = `
+<ForwardRef(Button)>
+  Connect React Component
+</ForwardRef(Button)>
+`;
+
+exports[`ConnectedReactComponentOwnProps renders props 1 1`] = `
+<ForwardRef(Button)>
+  ConnectedReactComponentOwnProps Label
+</ForwardRef(Button)>
+`;
+
+exports[`ConnectedReactFCComponent renders props 1 1`] = `
+<ForwardRef(Button)>
+  ConnectedReactFCComponent Component
+</ForwardRef(Button)>
+`;
+
+exports[`ConnectedReactFCComponentOwnProps renders props 1 1`] = `
+<ForwardRef(Button)>
+  ConnectedReactFCComponentOwnProps Label
+</ForwardRef(Button)>
+`;
+
 exports[`Example renders props 1 1`] = `
 <React.Fragment>
   <h1>
-    Example of redux toolkit
+    Example of GreenXBlack redux toolkit
   </h1>
   <h1>
     Hooks results: 
@@ -14,6 +46,8 @@ exports[`Example renders props 1 1`] = `
     username errors
   </p>
   <ForwardRef(Input)
+    id="username"
+    name="username"
     placeholder="username"
   />
   <ForwardRef(Button)>
@@ -77,5 +111,9 @@ exports[`Example renders props 1 1`] = `
     </ForwardRef(Button)>
     <Connected Hooks Component />
   </div>
+  <ConnectReactComponent />
+  <ConnectedReactComponentOwnProps
+    label="ConnectedReactComponentOwnProps Label"
+  />
 </React.Fragment>
 `;

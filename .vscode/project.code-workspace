@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "name": "root",
+      "path": "../"
+    },
+    {
       "name": "components",
       "path": "../packages/components"
     },

@@ -1,5 +1,12 @@
-import { RootState, extraArgsConnectProps } from './store';
-import { createTestComponent, mockHooks } from 'react-redux-toolkit/testUtils';
+import {
+  createConnectHooksTester,
+  createConnectReactTester,
+  createConnectReduxTester,
+  mockHooks,
+} from '@tquinlan1992/react-redux-toolkit';
+
+import { RootState } from './store';
+import { extraArgsConnectProps } from './connectProps';
 
 const testUtilsExtraArgs = {
   ...extraArgsConnectProps,
@@ -8,6 +15,12 @@ const testUtilsExtraArgs = {
   },
 };
 
-export const testComponent = createTestComponent<RootState, typeof testUtilsExtraArgs>(
+export const testComponent = createConnectReduxTester<RootState, typeof testUtilsExtraArgs>(
   testUtilsExtraArgs,
 );
+
+export const testConnectHooks =
+  createConnectHooksTester<typeof testUtilsExtraArgs>(testUtilsExtraArgs);
+
+export const testConnectReact =
+  createConnectReactTester<typeof testUtilsExtraArgs>(testUtilsExtraArgs);
