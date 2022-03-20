@@ -2,6 +2,16 @@
   "name": "@tquinlan1992/react-redux-toolkit-example",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "PORT=8000 craco start",
+    "build": "craco build",
+    "type-check": "tsc --noEmit",
+    "test:watch": "craco test --runInBand",
+    "test:ci": "craco test --watchAll=false",
+    "eject": "craco eject",
+    "lint": "eslint 'src/**/*.ts?(x)'",
+    "serve": "serve -s build"
+  },
   "dependencies": {
     "@aws-amplify/ui-react": "^1.2.21",
     "@craco/craco": "^6.4.3",
@@ -35,16 +45,6 @@
     "webpack": "~4.44.2",
     "whatwg-fetch": "^3.6.2",
     "yup": "^0.32.11"
-  },
-  "scripts": {
-    "dev": "PORT=8000 craco start",
-    "build": "craco build",
-    "type-check": "tsc --noEmit",
-    "test:watch": "craco test --runInBand",
-    "test:ci": "JEST_JUNIT_OUTPUT_FILE=../../reports/junit/${PWD##*/}-junit.xml craco test --watchAll=false",
-    "eject": "craco eject",
-    "lint": "eslint 'src/**/*.ts?(x)'",
-    "serve": "serve -s build"
   },
   "eslintConfig": {
     "extends": [
