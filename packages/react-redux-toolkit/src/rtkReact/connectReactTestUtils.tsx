@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ShallowRenderer, createRenderer } from 'react-test-renderer/shallow';
 
-import { getMockTranslate, getPartialDeep } from './testUtilsBase';
+import { getPartialDeep, mockActions, mockTranslate } from './testUtilsBase';
 
 export function createConnectReactTester<
   Options extends {
     extraArgsComponent?: Record<string, any>;
+    actions?: Record<string, any>;
   },
 >({
   extraArgsComponent,
+  actions: optionsActions,
 }: Options): <
   RRTKComponent extends {
     Component: (args: any) => any;
@@ -33,7 +35,13 @@ export function createConnectReactTester<
       describe('renders', () => {
         const renderer = createRenderer();
         const testComponent = (props: any) => {
-          renderer.render(<Component {...props} translate={getMockTranslate()} />);
+          renderer.render(
+            <Component
+              {...props}
+              translate={mockTranslate}
+              mockActions={mockActions(optionsActions)}
+            />,
+          );
           expect(renderer.getRenderOutput()).toMatchSnapshot();
         };
         component({

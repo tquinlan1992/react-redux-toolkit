@@ -7,8 +7,9 @@ import {
   RTKAppThunkAction,
   configureSlices,
   createConnectHooks,
-  createConnectProps,
+  createConnectRedux,
   getApisReducer,
+  mapDispatchActions,
 } from '..';
 
 const slices = {
@@ -30,10 +31,6 @@ export const storeActions = {
   },
 };
 
-export const extraArgsMapDispatch = {
-  storeActions,
-};
-
 const { apiReducer, middleware } = getApisReducer({ exampleRTKApi });
 
 export const store = rtkConfigureStore({
@@ -47,27 +44,32 @@ export type AppDispatch = typeof store.dispatch;
 
 export type AppThunkAction = RTKAppThunkAction<RootState>;
 
+export const mappedStoreActions = mapDispatchActions({
+  actions: storeActions,
+  dispatch: store.dispatch,
+});
+
 const extraArgsMapState = {
   selectors: storeSelectors,
 };
 
 export const extraArgsConnectProps = {
   extraArgsMapState,
-  extraArgsMapDispatch,
   extraArgsHooks: {
     hooks: {
       hook1: () => ({ result: 'hook1 result' }),
     },
+    actions: mappedStoreActions,
   },
-  extraArgsComponent: { Components },
+  extraArgsComponent: { Components, actions: mappedStoreActions },
 };
 
-export const connectProps = createConnectProps<RootState, typeof extraArgsConnectProps>(
+export const connectRedux = createConnectRedux<RootState, typeof extraArgsConnectProps>(
   extraArgsConnectProps,
 );
 
-export function createWithOwnProps<OwnProps>() {
-  createConnectProps<RootState, typeof extraArgsConnectProps, OwnProps>(extraArgsConnectProps);
+export function connectReduxOwnProps<OwnProps>() {
+  createConnectRedux<RootState, typeof extraArgsConnectProps, OwnProps>(extraArgsConnectProps);
 }
 
 export const connectHooks = createConnectHooks<{

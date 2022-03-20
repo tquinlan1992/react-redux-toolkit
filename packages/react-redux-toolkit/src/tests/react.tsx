@@ -1,42 +1,20 @@
 import { Provider } from 'react-redux';
 
-import { connectHooks, connectProps, store } from './store';
+import { connectHooks, connectRedux, store } from './store';
 
 const ConnectedHooks = connectHooks('Connected Hooks Component', () => ({
   hooks: { hook1: 'hook1 value' },
 }))(({ hooks }) => <h1>{hooks.hook1}</h1>);
 
-const ConnectPropsChildren = connectProps(
+const ConnectPropsChildren = connectRedux(
   'ConnectPropsChildren',
-  undefined,
   undefined,
   undefined,
 )(() => <h1>Test</h1>);
 
-export const ConnectedPropsComponent = connectProps(
+export const ConnectedPropsComponent = connectRedux(
   'React-Redux-Redux-Component',
   ({ state }) => state.example,
-  ({ storeActions }) => ({
-    onChangeInput1: storeActions.example.input1,
-    onChangeInput2: storeActions.example.input2,
-    setInput1: () =>
-      storeActions.example.set({
-        input1: 'set input1',
-      }),
-    setInput2: () =>
-      storeActions.example.set({
-        input2: 'set input2',
-      }),
-    resetAllInputs: () => storeActions.example.resetAll(),
-    resetInput1: () => storeActions.example.reset(['input1']),
-    resetInput2: () => storeActions.example.reset(['input2']),
-    setAllInputs: () =>
-      storeActions.example.setAll({
-        input1: 'setAll input1',
-        input2: 'setAll input2',
-      }),
-    setFromThunk: storeActions.thunks.example.setFromThunk,
-  }),
   ({ state, Yup, hooks: { hook1 } }) => {
     return {
       state,
@@ -64,20 +42,21 @@ export const ConnectedPropsComponent = connectProps(
     <input {...form.register('username')} />
     <button onClick={() => form.handleSubmit((data) => console.log('formSubmit', data))} />
     <div>
-      <Input placeholder="input1" value={state.input1} onChange={actions.onChangeInput1} />
+      <Input placeholder="input1" value={state.input1} onChange={actions.example.input1} />
     </div>
     <div>
-      <Input placeholder="input2" onChange={actions.onChangeInput2} value={state.input2} />
+      <Input placeholder="input2" onChange={actions.example.input2} value={state.input2} />
     </div>
     <div>
-      <Button onClick={actions.resetAllInputs}>Reset All input</Button>
-      <Button onClick={actions.resetAllInputs}>Reset All input</Button>
-      <Button onClick={actions.resetInput1}>Reset input 1</Button>
-      <Button onClick={actions.resetInput2}>Reset input 2</Button>
-      <Button onClick={actions.setInput1}>Set input 1</Button>
-      <Button onClick={actions.setInput2}>Set input 2</Button>
-      <Button onClick={actions.setAllInputs}>Set All input</Button>
-      <Button onClick={actions.setFromThunk}>Set From Thunk</Button>
+      <Button onClick={actions.example.resetAll}>Reset All input</Button>
+      <Button onClick={() => actions.example.reset(['input1'])}>Reset input 1</Button>
+      <Button onClick={() => actions.example.reset(['input2'])}>Reset input 2</Button>
+      <Button onClick={() => actions.example.input1('Set input 1')}>Set input 1</Button>
+      <Button onClick={() => actions.example.input1('Set input 2')}>Set input 2</Button>
+      <Button onClick={() => actions.example.setAll({ input1: 'set all 1', input2: 'set all 2' })}>
+        Set All input
+      </Button>
+      <Button onClick={actions.thunks.example.setFromThunk}>Set From Thunk</Button>
       <ConnectPropsChildren.Connected />
     </div>
   </>

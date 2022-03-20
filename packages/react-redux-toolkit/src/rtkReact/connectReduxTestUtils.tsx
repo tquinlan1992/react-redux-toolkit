@@ -3,19 +3,16 @@ import { ShallowRenderer, createRenderer } from 'react-test-renderer/shallow';
 import * as Yup from 'yup';
 
 import {
+  DeepPartial,
   getMockApiMutations,
   getMockApiQueries,
   getMockForm,
-  getMockTranslate,
   getPartialDeep,
   mockActions,
+  mockTranslate,
 } from './testUtilsBase';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-type DeepPartial<T> = {
-  [P in keyof T]?: DeepPartial<T[P]>;
-};
 
 export function createConnectReduxTester<
   AppState,
@@ -23,11 +20,13 @@ export function createConnectReduxTester<
     extraArgsMapState?: Record<string, any>;
     extraArgsComponent?: Record<string, any>;
     extraArgsMapHooks?: Record<string, any>;
+    actions?: Record<string, any>;
   },
 >({
   extraArgsMapState,
   extraArgsComponent,
   extraArgsMapHooks,
+  actions: optionsActions,
 }: Options): <
   RRTKComponent extends {
     mapStateToProps: (
@@ -41,6 +40,7 @@ export function createConnectReduxTester<
         form: any;
         apiQueries: any;
         apiMutations: any;
+        ownProps: any;
       },
     >(
       args: Args,
@@ -69,7 +69,12 @@ export function createConnectReduxTester<
     mapHooks: (
       args: Options['extraArgsMapHooks'] & {
         testMapHooks: (args: {
-          given: Omit<Parameters<RRTKComponent['mapHooks']>[0], 'actions' | 'Yup'>;
+          given: Omit<
+            Parameters<RRTKComponent['mapHooks']>[0],
+            'actions' | 'Yup' | 'ownProps' | 'translate'
+          > & {
+            ownProps?: Parameters<RRTKComponent['mapHooks']>[0]['ownProps'];
+          };
           expect: {
             formDefaultValues?: ReturnType<RRTKComponent['mapHooks']>['defaultValues'];
           } & Omit<
@@ -103,9 +108,10 @@ export function createConnectReduxTester<
           props: DeepPartial<
             Omit<
               React.ComponentProps<typeof rRTKComponent['Component']>,
-              'actions' | 'form' | 'apiQueries' | 'apiMutations'
+              'actions' | 'form' | 'apiQueries' | 'apiMutations' | 'ownProps'
             >
-          >,
+          > &
+            React.ComponentProps<typeof rRTKComponent['Component']>['ownProps'],
         ) => void;
       },
     ) => void;
@@ -133,7 +139,7 @@ export function createConnectReduxTester<
         mapDispatch && mapDispatch();
       });
       describe('mapHooks', () => {
-        const actions = { actions: mockActions };
+        const actions = { actions: mockActions(optionsActions) };
         const testMapHooks = ({
           given,
           expect: expectValue = {},
@@ -147,7 +153,8 @@ export function createConnectReduxTester<
             ...given,
             ...extraArgsMapState,
             Yup,
-            actions: mockActions,
+            actions: mockActions(optionsActions),
+            translate: mockTranslate,
           });
           const returnWithoutForm = omit(
             mapHooksReturn,
@@ -184,10 +191,10 @@ export function createConnectReduxTester<
             <Component
               {...props}
               form={getMockForm()}
-              actions={mockActions}
+              mockActions={mockActions(optionsActions)}
               apiQueries={getMockApiQueries()}
               apiMutations={getMockApiMutations()}
-              translate={getMockTranslate()}
+              translate={mockTranslate}
             />,
           );
           expect(renderer.getRenderOutput()).toMatchSnapshot();

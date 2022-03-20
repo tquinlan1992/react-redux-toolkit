@@ -19,56 +19,51 @@ exports[`example-component renders props 1 1`] = `
   />
   <div>
     <Input
-      onChange="actions.onChangeInput1"
+      onChange={[MockFunction]}
       placeholder="input1"
       value="input1"
     />
   </div>
   <div>
     <Input
-      onChange="actions.onChangeInput2"
+      onChange={[MockFunction]}
       placeholder="input2"
       value="input2"
     />
   </div>
   <div>
     <Button
-      onClick="actions.resetAllInputs"
+      onClick={[MockFunction]}
     >
       Reset All input
     </Button>
     <Button
-      onClick="actions.resetAllInputs"
-    >
-      Reset All input
-    </Button>
-    <Button
-      onClick="actions.resetInput1"
+      onClick={[Function]}
     >
       Reset input 1
     </Button>
     <Button
-      onClick="actions.resetInput2"
+      onClick={[Function]}
     >
       Reset input 2
     </Button>
     <Button
-      onClick="actions.setInput1"
+      onClick={[Function]}
     >
       Set input 1
     </Button>
     <Button
-      onClick="actions.setInput2"
+      onClick={[Function]}
     >
       Set input 2
     </Button>
     <Button
-      onClick="actions.setAllInputs"
+      onClick={[Function]}
     >
       Set All input
     </Button>
     <Button
-      onClick="actions.setFromThunk"
+      onClick={[MockFunction]}
     >
       Set From Thunk
     </Button>

@@ -4,12 +4,11 @@ import { ShallowRenderer, createRenderer } from 'react-test-renderer/shallow';
 import * as Yup from 'yup';
 
 import {
-  DeepPartial,
   getMockApiMutations,
   getMockApiQueries,
   getMockForm,
-  getMockTranslate,
   getPartialDeep,
+  mockTranslate,
 } from './testUtilsBase';
 
 export function createConnectHooksTester<
@@ -28,6 +27,7 @@ export function createConnectHooksTester<
         form: any;
         apiQueries: any;
         apiMutations: any;
+        ownProps: any;
       },
     >(
       args: Args,
@@ -38,14 +38,12 @@ export function createConnectHooksTester<
   componentName: string,
   rRTKComponent: RRTKComponent,
   {
-    mapDispatch,
     component,
   }: {
-    mapDispatch?: () => void;
     mapHooks: (
       args: Options['extraArgsMapHooks'] & {
         testMapHooks: (args: {
-          given: Omit<Parameters<RRTKComponent['mapHooks']>[0], 'Yup'>;
+          given: Omit<Parameters<RRTKComponent['mapHooks']>[0], 'Yup' | 'translate' | 'actions'>;
           expect?: {
             formDefaultValues?: ReturnType<RRTKComponent['mapHooks']>['defaultValues'];
           } & Omit<
@@ -76,22 +74,18 @@ export function createConnectHooksTester<
         shallow: ShallowRenderer;
         getPartialDeep: typeof getPartialDeep;
         testComponent: (
-          props: DeepPartial<
+          props: Partial<
             Omit<
               React.ComponentProps<typeof rRTKComponent['Component']>,
-              'form' | 'apiQueries' | 'apiMutations'
+              'actions' | 'form' | 'apiQueries' | 'apiMutations' | 'ownProps'
             >
-          >,
+          > & { ownProps?: React.ComponentProps<typeof rRTKComponent['Component']>['ownProps'] },
         ) => void;
       },
     ) => void;
   },
 ) => void {
-  return (
-    componentName,
-    { mapHooks, Component },
-    { mapDispatch, mapHooks: mapHooksTestProp, component },
-  ) => {
+  return (componentName, { mapHooks, Component }, { mapHooks: mapHooksTestProp, component }) => {
     describe(componentName, () => {
       describe('mapHooks', () => {
         const testMapHooks = ({
@@ -106,6 +100,8 @@ export function createConnectHooksTester<
           const mapHooksReturn = mapHooks({
             ...given,
             Yup,
+            translate: mockTranslate,
+            ownProps: given.ownProps,
           });
           const returnWithoutForm = omit(
             mapHooksReturn,
@@ -143,7 +139,7 @@ export function createConnectHooksTester<
               form={getMockForm()}
               apiQueries={getMockApiQueries()}
               apiMutations={getMockApiMutations()}
-              translate={getMockTranslate()}
+              translate={mockTranslate}
             />,
           );
           expect(renderer.getRenderOutput()).toMatchSnapshot();

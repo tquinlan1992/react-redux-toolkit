@@ -1,16 +1,14 @@
+import { mapValues } from 'lodash';
 import { UseFormReturn } from 'react-hook-form';
 import { UseTranslationResponse, useTranslation } from 'react-i18next';
-import { MapDispatchToPropsParam, ResolveThunks, connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { AnyAction, Dispatch } from 'redux';
 import * as Yup from 'yup';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 import { useReactFormToolkit } from '../react-form-toolkit';
-import { MapHooksReturn } from './types';
-
-export type ConnectorProps<Connector extends (comoponent: React.FunctionComponent) => any> =
-  Parameters<Parameters<Connector>[0]>[0];
+import { MapHooksReturnBase, OwnPropsGeneric } from './types';
 
 type MapStateToPropsGeneric<
   AppState,
@@ -25,18 +23,8 @@ type MapStateToPropsGeneric<
 
 type OptionsGeneric = {
   extraArgsMapState?: Record<string, any>;
-  extraArgsMapDispatch?: Record<string, any>;
   extraArgsHooks?: Record<string, any>;
   extraArgsComponent?: Record<string, any>;
-};
-
-type MapDispatchToPropsGeneric<Options extends OptionsGeneric, OwnProps extends OwnPropsGeneric> = (
-  params: Options['extraArgsMapDispatch'] & { ownProps: OwnProps },
-) => MapDispatchToPropsParam<{}, {}>;
-
-export type OwnPropsGeneric = {
-  state?: Record<string, any>;
-  actions?: Record<string, any>;
 };
 
 type MapHooksGeneric<
@@ -44,31 +32,26 @@ type MapHooksGeneric<
   Options extends OptionsGeneric,
   OwnProps extends OwnPropsGeneric,
   MapStateToProps extends MapStateToPropsGeneric<AppState, OwnProps, Options>,
-  MapDispatchToProps extends MapDispatchToPropsGeneric<Options, OwnProps>,
   MapHooks extends (params: any) => any,
 > = (
-  params: { state: ReturnType<MapStateToProps> } & {
-    actions: ResolveThunks<ReturnType<MapDispatchToProps>>;
-  } & { Yup: typeof Yup } & Options['extraArgsHooks'],
-) => {
-  [P in keyof Omit<
-    ReturnType<MapHooks>,
-    'state' | 'form' | 'hooks' | 'apiQueries' | 'apiMutations'
-  >]: never;
-} & MapHooksReturn;
+  params: {
+    state: ReturnType<MapStateToProps>;
+    Yup: typeof Yup;
+    ownProps: OwnProps;
+    translate: UseTranslationResponse<'ns1'>[0];
+  } & Options['extraArgsHooks'],
+) => MapHooksReturnBase<MapHooks>;
 
 export function createConnectRedux<
   AppState,
   Options extends OptionsGeneric,
-  OwnProps extends OwnPropsGeneric = OwnPropsGeneric,
+  OwnProps extends OwnPropsGeneric = {},
 >({
   extraArgsMapState,
-  extraArgsMapDispatch,
   extraArgsHooks,
   extraArgsComponent,
 }: {
   extraArgsMapState?: Options['extraArgsMapState'];
-  extraArgsMapDispatch?: Options['extraArgsMapDispatch'];
   extraArgsHooks?: Options['extraArgsHooks'];
   extraArgsComponent?: Options['extraArgsComponent'];
 }): <
@@ -77,36 +60,35 @@ export function createConnectRedux<
     OwnProps,
     Options
   > = MapStateToPropsGeneric<AppState, OwnProps, Options>,
-  MapDispatchToProps extends MapDispatchToPropsGeneric<
-    Options,
-    OwnProps
-  > = MapDispatchToPropsGeneric<Options, OwnProps>,
   MapHooks extends MapHooksGeneric<
     AppState,
     Options,
     OwnProps,
     MapStateToProps,
-    MapDispatchToProps,
     MapHooks
-  > = MapHooksGeneric<AppState, Options, OwnProps, MapStateToProps, MapDispatchToProps, any>,
+  > = MapHooksGeneric<AppState, Options, OwnProps, MapStateToProps, any>,
 >(
   displayName: string,
   mapStateToProps?: MapStateToProps,
-  mapDispatchToProps?: MapDispatchToProps,
   mapHooks?: MapHooks,
 ) => (
   Component: React.FunctionComponent<
     Pick<ReturnType<MapHooks>, 'hooks' | 'apiQueries' | 'apiMutations'> & {
       form: UseFormReturn<Yup.InferType<ReturnType<MapHooks>['form']['schema']>>;
       state: ReturnType<MapStateToProps>;
-      actions: ResolveThunks<ReturnType<MapDispatchToProps>>;
       translate: UseTranslationResponse<'ns1'>[0];
+      ownProps: OwnProps;
     } & Options['extraArgsComponent']
   >,
 ) => {
-  Component: React.FunctionComponent<ReturnType<MapHooks> & { state: ReturnType<MapStateToProps> }>;
+  Component: React.FunctionComponent<
+    ReturnType<MapHooks> & {
+      state: ReturnType<MapStateToProps>;
+      mockActions?: Record<string, any>;
+      ownProps: OwnProps;
+    }
+  >;
   mapStateToProps: MapStateToProps;
-  mapDispatchToProps: MapDispatchToProps;
   mapHooks: MapHooks;
   Connected: React.ComponentType<OwnProps>;
   extraArgsHooks: Options['extraArgsHooks'];
@@ -114,33 +96,23 @@ export function createConnectRedux<
   return function (
     displayName = '',
     mapStateToProps = (() => ({})) as any,
-    mapDispatchToProps = (() => ({})) as any,
     mapHooks = (() => ({})) as any,
   ) {
     const mapStateToPropsMovedToState = (state: AppState, ownProps: any) => ({
       state: mapStateToProps({ state, ownProps, ...extraArgsMapState }),
-    });
-    const mapDispatchToPropsMovedToActions = (dispatch: any, ownProps: OwnProps) => ({
-      actions: (mapDispatchToProps as any)
-        ? bindActionCreators(
-            (mapDispatchToProps as any)({ ownProps, ...extraArgsMapDispatch }),
-            dispatch,
-          )
-        : {},
+      ownProps: ownProps,
     });
 
     return (Component) => {
-      const Connected = connect(
-        mapStateToPropsMovedToState,
-        mapDispatchToPropsMovedToActions,
-      )((props: any) => {
-        const { hooks, form, apiQueries, apiMutations } = mapHooks({
-          state: props.state,
-          actions: props.actions,
-          Yup,
-          ...extraArgsHooks,
-        });
+      const Connected = connect(mapStateToPropsMovedToState)((props: any) => {
         const { t: translate } = useTranslation();
+        const { hooks, form, apiQueries, apiMutations } = mapHooks({
+          ...extraArgsHooks,
+          state: props.state,
+          ownProps: props.ownProps,
+          Yup,
+          translate,
+        });
         const toolkitForm = form && useReactFormToolkit(form as any);
         return (Component as any)({
           ...props,
@@ -155,15 +127,36 @@ export function createConnectRedux<
       });
       Connected.displayName = displayName;
       return {
-        Component: (props) => Component({ ...props, ...extraArgsComponent } as any),
+        Component: (props) => {
+          if (extraArgsComponent && props.mockActions) {
+            extraArgsComponent.actions = props.mockActions;
+          }
+          return Component({ ...props, ...extraArgsComponent } as any);
+        },
         mapStateToProps,
-        mapDispatchToProps,
         mapHooks,
         Connected,
         extraArgsHooks,
       };
     };
   };
+}
+
+export function mapDispatchActions<Actions extends Record<string, any>>({
+  actions,
+  dispatch,
+}: {
+  actions: Actions;
+  dispatch: Dispatch<AnyAction>;
+}): Actions {
+  return mapValues(actions, (action) => {
+    if (typeof action === 'function') {
+      return (params: any) => dispatch(action(params));
+    }
+    if (action && typeof action === 'object') {
+      return mapDispatchActions({ actions: action, dispatch });
+    }
+  }) as Actions;
 }
 
 /**

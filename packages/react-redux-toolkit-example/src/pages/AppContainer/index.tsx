@@ -5,7 +5,7 @@ import { store } from '../../store';
 const AppContainer = () => {
   return (
     <Provider store={store}>
-      <Example.Connected />
+      <Example.Connected test="test" />
     </Provider>
   );
 };

@@ -1,10 +1,11 @@
 import {
   connectHooks,
-  connectProps,
   connectReact,
   connectReactFC,
   connectReactFCOwnProps,
   connectReactOwnProps,
+  connectRedux,
+  connectReduxWithOwnProps,
 } from '../../connectProps';
 
 import { createSelector } from '@reduxjs/toolkit';
@@ -35,35 +36,14 @@ export const ConnectedReactFCComponentOwnProps = connectReactFCOwnProps<{ label:
   'ConnectedReactComponentOwnProps',
 )(({ Components, label }) => <Components.Button>{label}</Components.Button>);
 
-const NoParams = connectProps('NoParams', undefined, undefined, undefined)(() => <h1>NoParams</h1>);
+const NoParams = connectRedux('NoParams', undefined, undefined)(() => <h1>NoParams</h1>);
 
-export default connectProps(
+export default connectReduxWithOwnProps<{ test: string }>()(
   'Example',
   ({ state, selectors }) => ({
     input1: createSelector(selectors.example.input1, (input1) => input1)(state),
     input2: selectors.example.input2(state),
     hookInput: 'hookInput',
-  }),
-  ({ storeActions }) => ({
-    onChangeInput1: storeActions.example.input1,
-    onChangeInput2: storeActions.example.input2,
-    setInput1: () =>
-      storeActions.example.set({
-        input1: 'set input1',
-      }),
-    setInput2: () =>
-      storeActions.example.set({
-        input2: 'set input2',
-      }),
-    resetAllInputs: () => storeActions.example.resetAll(),
-    resetInput1: () => storeActions.example.reset(['input1']),
-    resetInput2: () => storeActions.example.reset(['input2']),
-    setAllInputs: () =>
-      storeActions.example.setAll({
-        input1: 'setAll input1',
-        input2: 'setAll input2',
-      }),
-    setFromThunk: storeActions.thunks.example.setFromThunk,
   }),
   ({ state, Yup, hooks }) => ({
     state,
@@ -85,7 +65,6 @@ export default connectProps(
 )(
   ({
     state,
-    actions,
     hooks: { hook1 },
     form: {
       register,
@@ -93,6 +72,7 @@ export default connectProps(
       formState: { errors },
     },
     Components: { Input, Button },
+    actions,
   }) => {
     return (
       <>
@@ -114,24 +94,30 @@ export default connectProps(
           <Input
             placeholder="input1"
             value={state.input1}
-            onChange={(event) => actions.onChangeInput1(event.target.value)}
+            onChange={(event) => actions.example.input1(event.target.value)}
           />
         </div>
         <div>
           <Input
             placeholder="input2"
-            onChange={(event) => actions.onChangeInput2(event.target.value)}
+            onChange={(event) => actions.example.input2(event.target.value)}
             value={state.input2}
           />
         </div>
         <div>
-          <Button onClick={actions.resetAllInputs}>Reset All Input</Button>
-          <Button onClick={actions.resetInput1}>Reset Input 1</Button>
-          <Button onClick={actions.resetInput2}>Reset Input 2</Button>
-          <Button onClick={actions.setInput1}>Set Input 1</Button>
-          <Button onClick={actions.setInput2}>Set Input 2</Button>
-          <Button onClick={actions.setAllInputs}>Set All Input</Button>
-          <Button onClick={actions.setFromThunk}>Set From Thunk</Button>
+          <Button onClick={actions.example.resetAll}>Reset All Input</Button>
+          <Button onClick={() => actions.example.reset(['input1'])}>Reset Input 1</Button>
+          <Button onClick={() => actions.example.reset(['input2'])}>Reset Input 2</Button>
+          <Button onClick={() => actions.example.input1('input1 set')}>Set Input 1</Button>
+          <Button onClick={() => actions.example.input2('input2 set')}>Set Input 1</Button>
+          <Button
+            onClick={() =>
+              actions.example.setAll({ input1: 'input1 set all', input2: 'input2 setall' })
+            }
+          >
+            Set All Input
+          </Button>
+          <Button onClick={actions.thunks.example.setFromThunk}>Set From Thunk</Button>
           <ConnectedHooksComponent.Connected />
         </div>
         <ConnectedReactComponent.Connected />

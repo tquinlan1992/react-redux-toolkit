@@ -43,16 +43,27 @@ export const getMockForm = () =>
     },
   } as any as UseFormReturn<any>);
 
-export const getMockTranslate = () => jest.fn((key: string) => key);
+export const mockTranslate = jest.fn((key: string) => key);
 
-export const mockActions = new Proxy(
-  {},
-  {
-    get: function (target: Record<string, any>, prop: string) {
-      return `actions.${prop}`;
-    },
-  },
-);
+export function mockActionsHandler(key: string) {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const get: any = (target: any, prop: string) => {
+    if (typeof target[prop] === 'object') {
+      const handler = mockActionsHandler(`${key}.${prop}`);
+      return new Proxy(target[prop], handler);
+    }
+    if (typeof target[prop] === 'function') {
+      // return `${key}.${prop}`;
+      return jest.fn();
+    }
+  };
+  return {
+    get,
+  };
+}
+
+export const mockActions = (actions: Record<string, any> = {}) =>
+  new Proxy(actions, mockActionsHandler('actions'));
 
 const hookReturnProxy = (hookName: string) =>
   new Proxy(

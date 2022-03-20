@@ -23,10 +23,6 @@ export const storeActions = {
   },
 };
 
-export const extraArgsMapDispatch = {
-  storeActions,
-};
-
 const { apiReducer, middleware } = getApisReducer({ exampleRTKApi });
 
 export const store = rtkConfigureStore({
@@ -35,5 +31,3 @@ export const store = rtkConfigureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-
-export type AppThunkAction = typeof store.dispatch;

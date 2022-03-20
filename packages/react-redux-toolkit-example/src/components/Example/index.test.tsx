@@ -32,6 +32,7 @@ testComponent('Example', Example, {
         given: {
           state: state,
           hooks: mockHooks,
+          ownProps: { test: 'test' },
         },
         expect: {
           state,
@@ -58,6 +59,7 @@ testComponent('Example', Example, {
         hooks: {
           hook1: 'hook1',
         },
+        test: 'test',
       });
     });
   },
@@ -68,6 +70,7 @@ testConnectHooks('ConnectedHooksComponent', ConnectedHooksComponent, {
     it('should map hooks', () => {
       testMapHooks({
         given: {
+          ownProps: {},
           hooks: mockHooks,
         },
         calledWith: () => ({

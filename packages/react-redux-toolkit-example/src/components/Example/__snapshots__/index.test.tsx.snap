@@ -75,37 +75,37 @@ exports[`Example renders props 1 1`] = `
   </div>
   <div>
     <ForwardRef(Button)
-      onClick="actions.resetAllInputs"
+      onClick={[MockFunction]}
     >
       Reset All Input
     </ForwardRef(Button)>
     <ForwardRef(Button)
-      onClick="actions.resetInput1"
+      onClick={[Function]}
     >
       Reset Input 1
     </ForwardRef(Button)>
     <ForwardRef(Button)
-      onClick="actions.resetInput2"
+      onClick={[Function]}
     >
       Reset Input 2
     </ForwardRef(Button)>
     <ForwardRef(Button)
-      onClick="actions.setInput1"
+      onClick={[Function]}
     >
       Set Input 1
     </ForwardRef(Button)>
     <ForwardRef(Button)
-      onClick="actions.setInput2"
+      onClick={[Function]}
     >
-      Set Input 2
+      Set Input 1
     </ForwardRef(Button)>
     <ForwardRef(Button)
-      onClick="actions.setAllInputs"
+      onClick={[Function]}
     >
       Set All Input
     </ForwardRef(Button)>
     <ForwardRef(Button)
-      onClick="actions.setFromThunk"
+      onClick={[MockFunction]}
     >
       Set From Thunk
     </ForwardRef(Button)>

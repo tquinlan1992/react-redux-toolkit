@@ -4,6 +4,7 @@ import {
   createConnectReact,
   createConnectReactFC,
   createConnectRedux,
+  mapDispatchActions,
 } from '@tquinlan1992/react-redux-toolkit';
 import { RootState, store, storeActions, storeSelectors } from './store';
 
@@ -11,27 +12,27 @@ import { Components } from './reusableComponents';
 
 const hook1 = (input: string) => 'hook value: ' + input;
 
+export const mappedStoreActions = mapDispatchActions({
+  actions: storeActions,
+  dispatch: store.dispatch,
+});
+
 const extraArgsMapState = {
   selectors: storeSelectors,
 };
 
-const extraArgsMapDispatch = {
-  storeActions,
-};
-
 export const extraArgsConnectProps = {
   extraArgsMapState,
-  extraArgsMapDispatch,
   extraArgsHooks: {
     hooks: { hook1 },
   },
-  extraArgsComponent: { Components },
+  extraArgsComponent: { Components, actions: mappedStoreActions },
 };
 
 /*
  * connect redux
  */
-export const connectProps = createConnectRedux<RootState, typeof extraArgsConnectProps>(
+export const connectRedux = createConnectRedux<RootState, typeof extraArgsConnectProps>(
   extraArgsConnectProps,
 );
 

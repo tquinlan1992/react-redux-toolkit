@@ -1,52 +1,91 @@
+import { UseFormReturn } from 'react-hook-form';
+import { UseTranslationResponse, useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BaseMapHooks } from './types';
+/* eslint-disable @typescript-eslint/ban-types */
+import { useReactFormToolkit } from '../react-form-toolkit';
+import { ConnectHooksReturn, OwnPropsGeneric } from './types';
+
+type OptionsGeneric = {
+  extraArgsHooks?: Record<string, any>;
+  extraArgsComponent?: Record<string, any>;
+};
+
+type MapHooksGeneric<Options extends OptionsGeneric, OwnProps extends OwnPropsGeneric> = (
+  params: {
+    Yup: typeof Yup;
+    ownProps: OwnProps;
+    translate: UseTranslationResponse<'ns1'>[0];
+  } & Options['extraArgsHooks'],
+) => ConnectHooksReturn;
 
 export function createConnectHooks<
-  Options extends {
-    extraArgsHooks?: Record<string, any>;
-    extraArgsComponent?: Record<string, any>;
-  },
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  OwnProps = {},
+  Options extends OptionsGeneric,
+  OwnProps extends OwnPropsGeneric = {},
 >({
   extraArgsHooks,
   extraArgsComponent,
 }: {
   extraArgsHooks?: Options['extraArgsHooks'];
   extraArgsComponent?: Options['extraArgsComponent'];
-}): <MapHooks extends (params: Options['extraArgsHooks']) => BaseMapHooks>(
+}): <MapHooks extends MapHooksGeneric<Options, OwnProps> = MapHooksGeneric<Options, OwnProps>>(
   displayName: string,
-  mapHooks?: MapHooks,
+  mapHooks: (params: Parameters<MapHooks>[0]) => Partial<ReturnType<MapHooks>>,
 ) => (
   Component: React.FunctionComponent<
-    Pick<ReturnType<MapHooks>, 'hooks' | 'form'> & Options['extraArgsComponent']
+    Pick<ReturnType<MapHooks>, 'hooks' | 'apiQueries' | 'apiMutations'> & {
+      form: UseFormReturn<Yup.InferType<ReturnType<MapHooks>['form']['schema']>>;
+      translate: UseTranslationResponse<'ns1'>[0];
+      ownProps: OwnProps;
+    } & Options['extraArgsComponent']
   >,
 ) => {
-  Component: React.FunctionComponent<ReturnType<MapHooks> & OwnProps>;
+  Component: React.FunctionComponent<
+    ReturnType<MapHooks> & {
+      mockActions?: Record<string, any>;
+      ownProps: OwnProps;
+    }
+  >;
   mapHooks: MapHooks;
   Connected: React.ComponentType<OwnProps>;
+  extraArgsHooks: Options['extraArgsHooks'];
 } {
   return function (displayName = '', mapHooks = (() => ({})) as any) {
     return (Component) => {
       function Connected(props: any) {
-        const { form, hooks, apiQueries, apiMutations } = mapHooks({
+        const { t: translate } = useTranslation();
+        const { hooks, form, apiQueries, apiMutations } = mapHooks({
           ...extraArgsHooks,
+          state: props.state,
+          ownProps: props.ownProps,
+          Yup,
+          translate,
         });
-        const ConnectedComponent = (Component as any)({
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const toolkitForm = form && useReactFormToolkit(form as any);
+        return (Component as any)({
           ...props,
-          form,
           hooks,
+          state: props.state,
+          form: toolkitForm,
           apiQueries,
           apiMutations,
+          translate,
           ...extraArgsComponent,
         });
-        return ConnectedComponent;
       }
       Connected.displayName = displayName;
       return {
-        Component: (props) => Component({ ...props, ...extraArgsComponent } as any),
-        mapHooks,
+        Component: (props) => {
+          if (extraArgsComponent && props.mockActions) {
+            extraArgsComponent.actions = props.mockActions;
+          }
+          return Component({ ...props, ...extraArgsComponent } as any);
+        },
+        mapHooks: mapHooks as any,
         Connected,
+        extraArgsHooks,
       };
     };
   };

@@ -4386,7 +4386,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@craco/craco@npm:^6, @craco/craco@npm:^6.4.3":
+"@craco/craco@npm:^6.4.3":
   version: 6.4.3
   resolution: "@craco/craco@npm:6.4.3"
   dependencies:
@@ -8830,12 +8830,12 @@ __metadata:
   resolution: "@tquinlan1992/react-redux-toolkit-example@workspace:packages/react-redux-toolkit-example"
   dependencies:
     "@aws-amplify/ui-react": ^1.2.21
-    "@craco/craco": ^6
+    "@craco/craco": ^6.4.3
     "@reduxjs/toolkit": ^1.7.0
     "@testing-library/jest-dom": ^5.11.4
     "@testing-library/react": ^11.1.0
     "@testing-library/user-event": ^12.1.10
-    "@tquinlan1992/react-redux-toolkit": "*"
+    "@tquinlan1992/react-redux-toolkit": ^0.0.1
     "@types/jest": ^26.0.15
     "@types/node": ^15.14.1
     "@types/react": ^17.0.0
@@ -8877,7 +8877,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tquinlan1992/react-redux-toolkit@*, @tquinlan1992/react-redux-toolkit@workspace:packages/react-redux-toolkit":
+"@tquinlan1992/react-redux-toolkit@^0.0.1, @tquinlan1992/react-redux-toolkit@workspace:packages/react-redux-toolkit":
   version: 0.0.0-use.local
   resolution: "@tquinlan1992/react-redux-toolkit@workspace:packages/react-redux-toolkit"
   dependencies:

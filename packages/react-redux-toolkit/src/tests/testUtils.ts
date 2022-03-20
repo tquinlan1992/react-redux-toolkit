@@ -1,12 +1,16 @@
-import { createTestComponent, mockHooks } from '../testUtils';
-import { RootState, extraArgsConnectProps, storeSelectors } from './store';
+import { createConnectReduxTester } from '../';
+import { mockHooks } from '../testUtils';
+import { RootState, extraArgsConnectProps, mappedStoreActions, storeSelectors } from './store';
 
 const extraArgs = {
   extraArgsMapState: {
     selectors: storeSelectors,
   },
-  extraArgsComponent: {},
-  extraArgsMapHooks: { mockHooks: mockHooks(extraArgsConnectProps.extraArgsHooks.hooks) },
+  extraArgsComponent: { actions: mappedStoreActions },
+  extraArgsMapHooks: {
+    mockHooks: mockHooks(extraArgsConnectProps.extraArgsHooks.hooks),
+  },
+  actions: mappedStoreActions,
 };
 
-export const testComponent = createTestComponent<RootState, typeof extraArgs>(extraArgs);
+export const testComponent = createConnectReduxTester<RootState, typeof extraArgs>(extraArgs);

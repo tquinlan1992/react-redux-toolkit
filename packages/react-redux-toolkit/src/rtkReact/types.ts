@@ -1,6 +1,3 @@
-import { UseFormReturn } from 'react-hook-form';
-import { UseTranslationResponse } from 'react-i18next';
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
@@ -8,8 +5,8 @@ import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 
 import { useReactFormToolkit } from '../react-form-toolkit';
 
-export type BaseMapHooks = {
-  form?: UseFormReturn<any>;
+export type ConnectHooksReturn = {
+  form: Parameters<typeof useReactFormToolkit>[0];
   hooks?: any;
   apiQueries?: Record<
     string,
@@ -20,12 +17,26 @@ export type BaseMapHooks = {
     }
   >;
   apiMutations?: Record<string, readonly [MutationTrigger<any>, ...any]>;
-  translate?: UseTranslationResponse<'ns1'>[0];
 };
 
-export type MapHooksReturn = {
+export type MapHooksReturnBase<MapHooks extends (...args: any) => any> = {
+  // To make sure these are the only keys returned
+  [P in keyof Omit<
+    ReturnType<MapHooks>,
+    'state' | 'form' | 'hooks' | 'apiQueries' | 'apiMutations'
+  >]: never;
+} & {
   form?: Parameters<typeof useReactFormToolkit>[0];
   hooks?: any;
-  apiQueries?: Record<string, { isLoading: boolean; error?: any; data?: any }>;
+  apiQueries?: Record<
+    string,
+    {
+      isLoading: boolean;
+      error?: FetchBaseQueryError | SerializedError | undefined;
+      data?: any;
+    }
+  >;
   apiMutations?: Record<string, readonly [MutationTrigger<any>, ...any]>;
 };
+
+export type OwnPropsGeneric = Record<string, any>;
