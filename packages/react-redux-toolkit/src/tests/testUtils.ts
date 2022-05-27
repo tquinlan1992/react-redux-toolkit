@@ -1,4 +1,4 @@
-import { createConnectReduxTester } from '../';
+import { createConnectReduxTester } from '../testUtils';
 import { mockHooks } from '../testUtils';
 import { RootState, extraArgsConnectProps, mappedStoreActions, storeSelectors } from './store';
 

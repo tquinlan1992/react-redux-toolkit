@@ -57,21 +57,19 @@ export function createConnectHooks<
         const { t: translate } = useTranslation();
         const { hooks, form, apiQueries, apiMutations } = mapHooks({
           ...extraArgsHooks,
-          state: props.state,
-          ownProps: props.ownProps,
+          ownProps: props,
           Yup,
           translate,
         });
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const toolkitForm = form && useReactFormToolkit(form as any);
         return (Component as any)({
-          ...props,
           hooks,
-          state: props.state,
           form: toolkitForm,
           apiQueries,
           apiMutations,
           translate,
+          ownProps: props,
           ...extraArgsComponent,
         });
       }
