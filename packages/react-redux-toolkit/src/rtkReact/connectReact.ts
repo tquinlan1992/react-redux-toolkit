@@ -17,7 +17,7 @@ export function createConnectReact<
   >,
 ) => {
   Component: React.FunctionComponent<OwnProps>;
-  Connected: React.ComponentType<OwnProps>;
+  Connected: React.FC<OwnProps>;
 } {
   return function (displayName = '', mapHooks = (() => ({})) as any) {
     return (Component) => {

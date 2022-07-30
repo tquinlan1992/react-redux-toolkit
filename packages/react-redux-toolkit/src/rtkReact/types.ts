@@ -5,8 +5,14 @@ import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 
 import { useReactFormToolkit } from '../react-form-toolkit';
 
-export type ConnectHooksReturn = {
-  form: Parameters<typeof useReactFormToolkit>[0];
+export type ConnectHooksReturn<MapHooks extends (...args: any) => any> = {
+  // To make sure these are the only keys returned
+  [P in keyof Omit<
+    ReturnType<MapHooks>,
+    'state' | 'form' | 'hooks' | 'apiQueries' | 'apiMutations'
+  >]: any;
+} & {
+  form?: Parameters<typeof useReactFormToolkit>[0];
   hooks?: any;
   apiQueries?: Record<
     string,

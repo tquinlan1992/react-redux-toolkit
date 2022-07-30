@@ -14,7 +14,7 @@
     "type-check": "yarn workspaces foreach -v --exclude docs run type-check",
     "publish": "yarn workspace @tquinlan1992/react-redux-toolkit build && lerna publish",
     "start:docs": "yarn workspace docs start",
-    "start:example": "yarn workspace react-redux-toolkit-example dev"
+    "start:example": "yarn workspace @tquinlan1992/react-redux-toolkit-example dev"
   },
   "dependencies": {
     "eslint-config-prettier": "^8.3.0",

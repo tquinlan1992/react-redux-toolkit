@@ -19,7 +19,6 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@tquinlan1992/react-redux-toolkit": "^0.0.1",
     "@types/jest": "^26.0.15",
     "@types/node": "^15.14.1",
     "@types/react": "^17.0.0",

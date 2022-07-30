@@ -1,5 +1,6 @@
 import {
   connectHooks,
+  connectHooksOwnProps,
   connectReact,
   connectReactFC,
   connectReactFCOwnProps,
@@ -105,6 +106,7 @@ export default connectReduxWithOwnProps<{ test: string }>()(
           />
         </div>
         <div>
+          <Test123.Connected test1="Test Prop " />
           <Button onClick={actions.example.resetAll}>Reset All Input</Button>
           <Button onClick={() => actions.example.reset(['input1'])}>Reset Input 1</Button>
           <Button onClick={() => actions.example.reset(['input2'])}>Reset Input 2</Button>
@@ -126,3 +128,12 @@ export default connectReduxWithOwnProps<{ test: string }>()(
     );
   },
 );
+
+export const Test123 = connectHooksOwnProps<{ test1: string }>()(
+  'Test Prop',
+  ({ ownProps: { test1 } }) => ({
+    hooks: { test1: test1 + 'Test123' },
+  }),
+)(({ hooks }) => {
+  return <div>{hooks.test1}</div>;
+});

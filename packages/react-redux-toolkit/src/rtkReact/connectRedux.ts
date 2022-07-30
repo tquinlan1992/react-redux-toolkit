@@ -90,7 +90,7 @@ export function createConnectRedux<
   >;
   mapStateToProps: MapStateToProps;
   mapHooks: MapHooks;
-  Connected: React.ComponentType<OwnProps>;
+  Connected: React.FC<OwnProps>;
   extraArgsHooks: Options['extraArgsHooks'];
 } {
   return function (

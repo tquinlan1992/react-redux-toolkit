@@ -12,13 +12,17 @@ type OptionsGeneric = {
   extraArgsComponent?: Record<string, any>;
 };
 
-type MapHooksGeneric<Options extends OptionsGeneric, OwnProps extends OwnPropsGeneric> = (
+type MapHooksGeneric<
+  Options extends OptionsGeneric,
+  OwnProps extends OwnPropsGeneric,
+  MapHooks extends (params: any) => any,
+> = (
   params: {
     Yup: typeof Yup;
     ownProps: OwnProps;
     translate: UseTranslationResponse<'ns1'>[0];
   } & Options['extraArgsHooks'],
-) => ConnectHooksReturn;
+) => ConnectHooksReturn<MapHooks>;
 
 export function createConnectHooks<
   Options extends OptionsGeneric,
@@ -29,9 +33,15 @@ export function createConnectHooks<
 }: {
   extraArgsHooks?: Options['extraArgsHooks'];
   extraArgsComponent?: Options['extraArgsComponent'];
-}): <MapHooks extends MapHooksGeneric<Options, OwnProps> = MapHooksGeneric<Options, OwnProps>>(
+}): <
+  MapHooks extends MapHooksGeneric<Options, OwnProps, MapHooks> = MapHooksGeneric<
+    Options,
+    OwnProps,
+    any
+  >,
+>(
   displayName: string,
-  mapHooks: (params: Parameters<MapHooks>[0]) => Partial<ReturnType<MapHooks>>,
+  mapHooks: MapHooks,
 ) => (
   Component: React.FunctionComponent<
     Pick<ReturnType<MapHooks>, 'hooks' | 'apiQueries' | 'apiMutations'> & {
@@ -48,7 +58,7 @@ export function createConnectHooks<
     }
   >;
   mapHooks: MapHooks;
-  Connected: React.ComponentType<OwnProps>;
+  Connected: React.FC<OwnProps>;
   extraArgsHooks: Options['extraArgsHooks'];
 } {
   return function (displayName = '', mapHooks = (() => ({})) as any) {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import i18n, { Resource } from 'i18next';
 // import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
@@ -23,5 +24,5 @@ export const Tquinlan1992App: React.FC<{
   resources: Resource;
 }> = ({ store, resources, children }) => {
   initI18n(resources);
-  return <Provider store={store}>{children}</Provider>;
+  return <Provider store={store}>{children as any}</Provider>;
 };
