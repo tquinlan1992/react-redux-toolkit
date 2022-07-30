@@ -11,9 +11,12 @@ import {
 
 import { createSelector } from '@reduxjs/toolkit';
 
-export const ConnectedHooksComponent = connectHooks('Connected Hooks Component', ({ hooks }) => ({
-  hooks: { hook1: hooks.hook1('testHookInput') },
-}))(({ hooks, Components }) => {
+export const ConnectedHooksComponent = connectHooks(
+  ({ hooks }) => ({
+    hooks: { hook1: hooks.hook1('testHookInput') },
+  }),
+  'Connected Hooks Component',
+)(({ hooks, Components }) => {
   return (
     <Components.Button onClick={() => alert('ConnectedHooksComponent')}>
       {hooks.hook1}
@@ -37,10 +40,9 @@ export const ConnectedReactFCComponentOwnProps = connectReactFCOwnProps<{ label:
   'ConnectedReactComponentOwnProps',
 )(({ Components, label }) => <Components.Button>{label}</Components.Button>);
 
-const NoParams = connectRedux('NoParams', undefined, undefined)(() => <h1>NoParams</h1>);
+const NoParams = connectRedux(undefined, undefined, 'NoParams')(() => <h1>NoParams</h1>);
 
 export default connectReduxWithOwnProps<{ test: string }>()(
-  'Example',
   ({ state, selectors }) => ({
     input1: createSelector(selectors.example.input1, (input1) => input1)(state),
     input2: selectors.example.input2(state),
@@ -63,6 +65,7 @@ export default connectReduxWithOwnProps<{ test: string }>()(
       },
     },
   }),
+  'Example',
 )(
   ({
     state,
@@ -130,10 +133,10 @@ export default connectReduxWithOwnProps<{ test: string }>()(
 );
 
 export const Test123 = connectHooksOwnProps<{ test1: string }>()(
-  'Test Prop',
   ({ ownProps: { test1 } }) => ({
     hooks: { test1: test1 + 'Test123' },
   }),
+  'Test Prop',
 )(({ hooks }) => {
   return <div>{hooks.test1}</div>;
 });

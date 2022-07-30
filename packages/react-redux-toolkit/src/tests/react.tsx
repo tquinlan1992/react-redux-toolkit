@@ -2,18 +2,20 @@ import { Provider } from 'react-redux';
 
 import { connectHooks, connectRedux, store } from './store';
 
-const ConnectedHooks = connectHooks('Connected Hooks Component', () => ({
-  hooks: { hook1: 'hook1 value' },
-}))(({ hooks }) => <h1>{hooks.hook1}</h1>);
+const ConnectedHooks = connectHooks(
+  () => ({
+    hooks: { hook1: 'hook1 value' },
+  }),
+  'Connected Hooks Component',
+)(({ hooks }) => <h1>{hooks.hook1}</h1>);
 
 const ConnectPropsChildren = connectRedux(
+  undefined,
+  undefined,
   'ConnectPropsChildren',
-  undefined,
-  undefined,
 )(() => <h1>Test</h1>);
 
 export const ConnectedPropsComponent = connectRedux(
-  'React-Redux-Redux-Component',
   ({ state }) => state.example,
   ({ state, Yup, hooks: { hook1 } }) => {
     return {
@@ -34,6 +36,7 @@ export const ConnectedPropsComponent = connectRedux(
       },
     };
   },
+  'React-Redux-Redux-Component',
 )(({ state, actions, form, hooks: { hook1 }, Components: { Input, Button } }) => (
   <>
     <h1>Example of redux toolkit</h1>

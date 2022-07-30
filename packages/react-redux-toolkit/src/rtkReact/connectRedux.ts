@@ -68,9 +68,9 @@ export function createConnectRedux<
     MapHooks
   > = MapHooksGeneric<AppState, Options, OwnProps, MapStateToProps, any>,
 >(
-  displayName: string,
   mapStateToProps?: MapStateToProps,
   mapHooks?: MapHooks,
+  displayName?: string,
 ) => (
   Component: React.FunctionComponent<
     Pick<ReturnType<MapHooks>, 'hooks' | 'apiQueries' | 'apiMutations'> & {
@@ -94,9 +94,9 @@ export function createConnectRedux<
   extraArgsHooks: Options['extraArgsHooks'];
 } {
   return function (
-    displayName = '',
     mapStateToProps = (() => ({})) as any,
     mapHooks = (() => ({})) as any,
+    displayName,
   ) {
     const mapStateToPropsMovedToState = (state: AppState, ownProps: any) => ({
       state: mapStateToProps({ state, ownProps, ...extraArgsMapState }),

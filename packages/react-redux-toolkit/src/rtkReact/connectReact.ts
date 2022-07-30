@@ -1,6 +1,6 @@
 import { UseTranslationResponse, useTranslation } from 'react-i18next';
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 export function createConnectReact<
   Options extends {
     extraArgsComponent?: Record<string, any>;
@@ -11,7 +11,7 @@ export function createConnectReact<
   extraArgsComponent,
 }: {
   extraArgsComponent?: Options['extraArgsComponent'];
-}): (displayName: string) => (
+}): (displayName?: string) => (
   Component: React.FunctionComponent<
     Options['extraArgsComponent'] & { translate: UseTranslationResponse<'ns1'>[0] } & OwnProps
   >,

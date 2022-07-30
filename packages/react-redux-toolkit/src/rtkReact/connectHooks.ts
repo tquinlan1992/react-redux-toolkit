@@ -40,8 +40,8 @@ export function createConnectHooks<
     any
   >,
 >(
-  displayName: string,
   mapHooks: MapHooks,
+  displayName?: string,
 ) => (
   Component: React.FunctionComponent<
     Pick<ReturnType<MapHooks>, 'hooks' | 'apiQueries' | 'apiMutations'> & {
@@ -61,7 +61,7 @@ export function createConnectHooks<
   Connected: React.FC<OwnProps>;
   extraArgsHooks: Options['extraArgsHooks'];
 } {
-  return function (displayName = '', mapHooks = (() => ({})) as any) {
+  return function (mapHooks = (() => ({})) as any, displayName) {
     return (Component) => {
       function Connected(props: any) {
         const { t: translate } = useTranslation();
